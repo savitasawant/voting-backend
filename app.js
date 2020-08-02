@@ -16,23 +16,7 @@ const port = process.env.PORT;
 
 // Enable all cors requests
 // app.use(cors());
-
-var allowedOrigins = ['http://localhost:8075', 'http://18.191.19.203',
-                      'http://3.129.12.90'];
-app.use(cors({
-  origin: function(origin, callback){
-    // allow requests with no origin 
-    // (like mobile apps or curl requests)
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  }
-}));
-
+// app.options('*', cors())
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -40,13 +24,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "*");
   next();
 });
-app.options('*', cors())
-// app.use(function(req, res, next) {
-//   res.setHeader('Content-Type', 'application/json');
-//   res.setHeader('referer-domain', 'application/json');
-//   res.setHeader('Authorization', 'application/json');
-//   next();
-// });
+
 
 
 // parse application/json
@@ -56,10 +34,10 @@ app.use(bodyParser.json({ extended: true, limit: '25MB', }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5MB', parameterLimit: 100 }));
 
 // routes which do not requires authentication
-app.use(routes);
+app.use(cors(),routes);
 
 // connect to routes
-app.use('/api', auth.required, apiRoutes);
+app.use('/api', cors(),auth.required, apiRoutes);
 
 
 // handling unauthorized requests
