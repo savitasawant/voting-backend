@@ -11,7 +11,8 @@ module.exports = (router) => {
 
   // dates
   router.post('/dates', startExpiryController.createStartExpiry);
-  router.get('/dates', startExpiryController.getStartExpiry);
+  router.put('/dates/:id', startExpiryController.updateStartExpiry);
+  
 
   return router;
 };

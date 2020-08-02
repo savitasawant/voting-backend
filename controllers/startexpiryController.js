@@ -55,3 +55,36 @@ exports.getStartExpiry = async (req, res) => {
       });
   }
 };
+
+exports.updateStartExpiry = async(req, res) => {
+  try{
+
+    let { data } = req.body;
+    let { id } = req.params;
+
+    let result = await StartExpiry.findByIdAndUpdate(id, data, { new: true });
+
+    if (!result) {
+      return res
+        .status(422)
+        .json({ status: "error", message: "Failed to update date" });
+    }
+    return res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Data created successfully.",
+        data: result
+      });
+
+  }
+  catch (err) {
+    console.error(`An error occurred white submission: ${err}`);
+    return res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Something went wrong, try again later."
+      });
+  }
+}
