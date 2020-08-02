@@ -1,0 +1,8 @@
+config
+.vscode
+
+node_modules
+build
+
+.env
+.DSStore
