@@ -16,7 +16,7 @@ const port = process.env.PORT;
 
 // Enable all cors requests
 app.use(cors());
-// app.options('*', cors())
+app.options('*', cors())
 
 
 // parse application/json
