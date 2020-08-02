@@ -16,19 +16,21 @@ const port = process.env.PORT;
 
 // Enable all cors requests
 // app.use(cors());
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-//   res.header("Access-Control-Allow-Headers", "referer-domain, Authorization, Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+
 
 app.use(function(req, res, next) {
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('referer-domain', 'application/json');
-  res.setHeader('Authorization', 'application/json');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "referer-domain, Authorization, Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+app.options('*', cors())
+// app.use(function(req, res, next) {
+//   res.setHeader('Content-Type', 'application/json');
+//   res.setHeader('referer-domain', 'application/json');
+//   res.setHeader('Authorization', 'application/json');
+//   next();
+// });
 
 
 // parse application/json
