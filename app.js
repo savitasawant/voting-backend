@@ -16,7 +16,7 @@ const port = process.env.PORT;
 
 // Enable all cors requests
 app.use(cors());
-app.options('*', cors())
+// app.options('*', cors())
 
 
 // parse application/json
@@ -26,16 +26,17 @@ app.use(bodyParser.json({ extended: true, limit: '25MB', }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5MB', parameterLimit: 100 }));
 
 // routes which do not requires authentication
-app.use(routes, cors(), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a Single Route'});
-});
+app.use(routes);
+// app.use(routes, cors(), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for a Single Route'});
+// });
 
 // connect to routes
-// app.use('/api', auth.required, apiRoutes, cors());
+app.use('/api', auth.required, apiRoutes);
 
-app.use('/api', auth.required, apiRoutes, cors(), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a Single Route'});
-});
+// app.use('/api', auth.required, apiRoutes, cors(), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for a Single Route'});
+// });
 
 
 app.use(function(req, res, next) {

@@ -9,7 +9,7 @@ exports.createVote = async (req, res) => {
     await Promise.all(
       votes.map(vote => {
         Candidate.updateOne(
-          { name: vote.selected_candidate },
+          { _id: vote.selected_candidate },
           { $inc: { total_vote: 1 } },
           function(err, success) {
             if (err) {
