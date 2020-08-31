@@ -4,14 +4,14 @@ const startExpiryController = require('../../controllers/startexpiryController')
 
 module.exports = (router) => {
   // User management
-  router.post('/users', usersController.createUser);
+  router.post('/node/users', usersController.createUser);
 
   // create position
-  router.post('/position', positionController.createPosition);
+  router.post('/node/position', positionController.createPosition);
 
   // dates
-  router.post('/dates', startExpiryController.createStartExpiry);
-  router.put('/dates/:id', startExpiryController.updateStartExpiry);
+  router.post('/node/dates', startExpiryController.createStartExpiry);
+  router.put('/node/dates/:id', startExpiryController.updateStartExpiry);
   
 
   return router;

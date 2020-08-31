@@ -6,18 +6,18 @@ const voteController = require('../controllers/voterController');
 const startExpiryController = require('../controllers/startexpiryController');
 
 module.exports = (router) => {
-    router.post('/login', loginController.login);
+    router.post('/node/login', loginController.login);
 
     // router.post('/register', registerController.register);
 
     // get position
-    router.get('/positions', positionController.getPositions);
+    router.get('/node/positions', positionController.getPositions);
 
     // create vote
-    router.post('/vote', voteController.createVote)
+    router.post('/node/vote', voteController.createVote)
 
     // get dates
-    router.get('/dates', startExpiryController.getStartExpiry);
+    router.get('/node/dates', startExpiryController.getStartExpiry);
 
     return router;
 };
