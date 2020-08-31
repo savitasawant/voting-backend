@@ -15,7 +15,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT;
 
 // Enable all cors requests
-app.use(cors());
+// app.use(cors());
 // app.options('*', cors())
 
 
