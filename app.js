@@ -15,8 +15,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT;
 
 // Enable all cors requests
-app.use(cors());
-// app.options('*', cors())
+// app.use(cors());
 
 
 // parse application/json
@@ -27,22 +26,26 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '5MB', parameterLimit: 10
 
 // routes which do not requires authentication
 app.use(routes);
-// app.use(routes, cors(), function (req, res, next) {
-//   res.json({msg: 'This is CORS-enabled for a Single Route'});
-// });
 
 // connect to routes
 app.use('/api', auth.required, apiRoutes);
 
-// app.use('/api', auth.required, apiRoutes, cors(), function (req, res, next) {
-//   res.json({msg: 'This is CORS-enabled for a Single Route'});
-// });
-
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "*");
+  var whiteList = [
+    'http://localhost:4200',
+    'http://google.com.ec'
+  ];
+
+  var origin = req.header.origin;
+
+  if(whiteList.indexOf(origin) >= -1){
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  // res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS,HEAD");
   next();
 });
 
